@@ -1,11 +1,17 @@
-@extends('layouts.app')
+<?php
 
-@section('title', 'Home - StepNStyle')
+use Illuminate\Http\Request;
 
-@section('content')
-    <section class="hero">
-        <h1 class="hero-title">Welcome to StepNStyle</h1>
-        <p class="hero-subtitle">Explore the best footwear at unbeatable prices.</p>
-        <a href="{{ route('shop.index') }}" class="hero-button">Shop Now</a>
-    </section>
-@endsection
+define('LARAVEL_START', microtime(true));
+
+// Determine if the application is in maintenance mode...
+if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php')) {
+    require $maintenance;
+}
+
+// Register the Composer autoloader...
+require __DIR__.'/../vendor/autoload.php';
+
+// Bootstrap Laravel and handle the request...
+(require_once __DIR__.'/../bootstrap/app.php')
+    ->handleRequest(Request::capture());
